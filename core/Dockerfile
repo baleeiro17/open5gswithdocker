@@ -26,11 +26,14 @@ RUN apt-get update && \
         iproute2 \
         ca-certificates \
         netbase \
+        iptables \
         pkg-config && \
     apt-get clean
 
 COPY iptables.sh /iptables.sh
+COPY setup.sh /setup.sh
 RUN chmod +x /iptables.sh
+RUN chmod +x /setup.sh
 RUN git clone https://github.com/open5gs/open5gs
 RUN	cd open5gs && meson build --prefix=`pwd`/install && ninja -C build
 RUN cd open5gs/build/ && ninja install
@@ -41,5 +44,5 @@ COPY mme.yaml  /open5gs/install/etc/open5gs/mme.yaml
 COPY sgw.yaml  /open5gs/install/etc/open5gs/sgw.yaml
 COPY hss.yaml  /open5gs/install/etc/open5gs/hss.yaml
 COPY pcrf.yaml  /open5gs/install/etc/open5gs/pcrf.yaml  
-CMD /iptables.sh ; /open5gs/install/bin/open5gs-pcrfd -D; /open5gs/install/bin/open5gs-pgwd -D; /open5gs/install/bin/open5gs-sgwd -D; /open5gs/install/bin/open5gs-hssd -D; /open5gs/install/bin/open5gs-mmed
+CMD /setup.sh ; /iptables.sh ; /open5gs/install/bin/open5gs-pcrfd -D ; /open5gs/install/bin/open5gs-pgwd -D ; /open5gs/install/bin/open5gs-sgwd -D ; /open5gs/install/bin/open5gs-hssd -D ; /open5gs/install/bin/open5gs-mmed
 
