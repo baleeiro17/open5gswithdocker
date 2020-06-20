@@ -32,12 +32,13 @@ RUN apt-get update && \
 COPY iptables.sh /iptables.sh
 RUN chmod +x /iptables.sh
 RUN git clone https://github.com/open5gs/open5gs
-ADD https://api.github.com/repos/open5gs/open5gs/git/refs/heads/master /root/open5gs-ver.json
-RUN	cd open5gs && \
-	git fetch && git checkout -f -B master origin/master && \
-    meson build && ninja -C build install
-COPY mme.yaml  /etc/open5gs/mme.yaml
-COPY sgw.yaml  /etc/open5gs/sgw.yaml
-COPY hss.yaml  /etc/open5gs/hss.yaml   
-CMD iptables.sh ; /usr/bin/open5gs-pcrfd -D; /usr/bin/open5gs-pgwd -D; /usr/bin/open5gs-sgwd -D; /usr/bin/open5gs-hssd -D; /usr/bin/open5gs-mmed
+RUN	cd open5gs && meson build --prefix=`pwd`/install && ninja -C build
+RUN cd open5gs/build/ && ninja install
+RUN echo $(cd $(dirname ./install/lib/x86_64-linux-gnu/) && pwd -P)/$(basename ./install/lib/x86_64-linux-gnu/) /home/acetcom/Documents/git/open5gs/install/lib/x86_64-linux-gnu
+RUN export LD_LIBRARY_PATH=/home/acetcom/Documents/git/open5gs/install/lib/x86_64-linux-gnu
+RUN ldd ./install/bin/open5gs-mmed
+COPY mme.yaml  /open5gs/install/etc/open5gs/mme.yaml
+COPY sgw.yaml  /open5gs/install/etc/open5gs/sgw.yaml
+COPY hss.yaml  /open5gs/install/etc/open5gs/hss.yaml   
+# CMD /iptables.sh ; /usr/bin/open5gs-pcrfd -D; /usr/bin/open5gs-pgwd -D; /usr/bin/open5gs-sgwd -D; /usr/bin/open5gs-hssd -D; /usr/bin/open5gs-mmed
 
