@@ -19,7 +19,7 @@
 #    domain: core,s1ap,nas,fd,gtp,mme,emm,esm,event,tlv,mem,sock
 #
 logger:
-    file: @localstatedir@/log/open5gs/mme.log
+    file: /open5gs/install/var/log/open5gs/mme.log
 
 #
 # mme:
@@ -202,7 +202,7 @@ logger:
 #    mme_name: open5gs-mme0
 #
 mme:
-    freeDiameter: @sysconfdir@/freeDiameter/mme.conf
+    freeDiameter: /open5gs/install/etc//freeDiameter/mme.conf
     s1ap:
         addr: 192.188.2.2
     gtpc:

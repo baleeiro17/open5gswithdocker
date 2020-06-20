@@ -21,10 +21,10 @@ db_uri: mongodb://192.188.2.10:27017/open5gs
 #    domain: core,fd,hss,event,mem,sock
 #
 logger:
-    file: @localstatedir@/log/open5gs/hss.log
+    file: /open5gs/install/var/log/open5gs/hss.log
 
 hss:
-    freeDiameter: @sysconfdir@/freeDiameter/hss.conf
+    freeDiameter: /open5gs/install/etc/freeDiameter/hss.conf
 
 #
 # parameter:

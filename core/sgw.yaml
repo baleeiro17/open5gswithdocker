@@ -19,7 +19,7 @@
 #    domain: core,gtp,sgw,event,tlv,mem,sock
 #
 logger:
-    file: @localstatedir@/log/open5gs/sgw.log
+    file: /open5gs/install/var/log/open5gs/sgw.log
 
 #
 # sgw:
