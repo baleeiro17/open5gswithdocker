@@ -36,9 +36,9 @@ RUN	cd open5gs && meson build --prefix=`pwd`/install && ninja -C build
 RUN cd open5gs/build/ && ninja install
 RUN echo $(cd $(dirname ./install/lib/x86_64-linux-gnu/) && pwd -P)/$(basename ./install/lib/x86_64-linux-gnu/) /home/acetcom/Documents/git/open5gs/install/lib/x86_64-linux-gnu
 RUN export LD_LIBRARY_PATH=/home/acetcom/Documents/git/open5gs/install/lib/x86_64-linux-gnu
-RUN ldd ./install/bin/open5gs-mmed
+# RUN ldd ./open5gs/install/bin/open5gs-mmed
 COPY mme.yaml  /open5gs/install/etc/open5gs/mme.yaml
 COPY sgw.yaml  /open5gs/install/etc/open5gs/sgw.yaml
 COPY hss.yaml  /open5gs/install/etc/open5gs/hss.yaml   
-# CMD /iptables.sh ; /usr/bin/open5gs-pcrfd -D; /usr/bin/open5gs-pgwd -D; /usr/bin/open5gs-sgwd -D; /usr/bin/open5gs-hssd -D; /usr/bin/open5gs-mmed
+CMD /iptables.sh ; /open5gs/install/bin/open5gs-pcrfd -D; /open5gs/install/bin/open5gs-pgwd -D; /open5gs/install/bin/open5gs-sgwd -D; /open5gs/install/bin/open5gs-hssd -D; /open5gs/install/bin/open5gs-mmed
 
