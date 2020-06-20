@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: open5gs-mongodb
+    ports:
+        - "27017:27017"
+    volumes:
+        - mongodb:/data/db
+    networks:
+        net1:
+            ipv4_address: 192.188.2.10    
+  webapp:
+    build: webapp
+    container_name: open5gs-webui
+    depends_on: 
+        - mongodb
+    ports:
+        - "3000:3000"
+    environment:
+        DB_URI: mongodb://192.188.2.10:27017/open5gs
+    networks:
+        net1:
+            ipv4_address: 192.188.2.11
+  core:
+    build: core 
+    container_name: open5gs-core
+    depends_on:
+        - mongodb
+    cap_add: 
+        - NET_ADMIN
+    devices:
+        - "/dev/net/tun:/dev/net/tun" 
+    sysctls:
+        - net.ipv6.conf.all.disable_ipv6=0
+    network_mode:
+        net1:
+            ipv4_address: 192.188.2.2
+networks: 
+    net1:
+        ipam: 
+            driver: default
+            config:
+                - subnet: 192.188.2.0/24                          

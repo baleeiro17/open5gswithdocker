@@ -37,6 +37,7 @@ RUN	cd open5gs && \
 	git fetch && git checkout -f -B master origin/master && \
     meson build && ninja -C build install
 COPY mme.yaml  /etc/open5gs/mme.yaml
-COPY sgw.yaml  /etc/open5gs/sgw.yaml    
+COPY sgw.yaml  /etc/open5gs/sgw.yaml
+COPY hss.yaml  /etc/open5gs/hss.yaml   
 CMD iptables.sh ; /usr/bin/open5gs-pcrfd -D; /usr/bin/open5gs-pgwd -D; /usr/bin/open5gs-sgwd -D; /usr/bin/open5gs-hssd -D; /usr/bin/open5gs-mmed
 
