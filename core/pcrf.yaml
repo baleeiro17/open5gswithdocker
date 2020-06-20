@@ -1,4 +1,4 @@
-b_uri: mongodb://192.188.2.10:27017/open5gs
+db_uri: mongodb://192.188.2.10:27017/open5gs
 
 #
 # logger:
