@@ -4,6 +4,8 @@ services:
   mongodb:
     image: mongo
     container_name: open5gs-mongodb
+    volumes:
+        - ./database:/data/db
     ports:
         - "27017:27017"
     networks:
