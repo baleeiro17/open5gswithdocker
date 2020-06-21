@@ -5,7 +5,7 @@
 In this repository, we developed an environment for simulating UE and ENB using l2NFAPI simulator from Open Air interface connected into 4g core from open5gscore. This work is on-going.
 
 For more information:
-* [Open5gs](https://www.open5gs.org/)
+* [Open5gs](https://open5gs.org/)
 * [Open Air Interface](https://www.openairinterface.org/)
 
 
