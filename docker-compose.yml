@@ -39,7 +39,7 @@ services:
     build: enb
     depends_on: 
         - core
-        - mongo
+        - mongodb
         - webapp
     privileged: true
     cap_add: 
