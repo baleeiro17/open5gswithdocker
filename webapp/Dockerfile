@@ -1,17 +1,9 @@
-FROM node:carbon
+From ubuntu:18.04
 
-ARG PACKAGE=open5gs
-ARG VERSION=1.0.0
-
-RUN set -e; \
-    cd /usr/src; \
-    rm -rf ./$PACKAGE; \
-    curl -SLO "https://github.com/open5gs/$PACKAGE/archive/v$VERSION.tar.gz"; \
-    tar -xvf v$VERSION.tar.gz; \
-    mv ./$PACKAGE-$VERSION/ ./$PACKAGE;
-
-WORKDIR /usr/src/open5gs/webui
-RUN npm install && \
-    npm run build
-
-CMD npm run start
+RUN apt-get update && apt-get install -y curl
+RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+RUN apt install -y nodejs
+RUN git clone https://github.com/open5gs/open5gs
+WORKDIR /open5gs/webui
+RUN npm install
+CMD npm run dev
